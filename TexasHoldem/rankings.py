@@ -60,7 +60,8 @@ class Rankings(Deck):
                 straight.clear()
                 straight.append((cards[i][0], self.get_card_out_of_weight(cards[i][1])))
                 i += 1
-        if len(set(straight)) >= 5:
+        straight_icons = [self.get_card_weight(i) for i in straight]
+        if len(set(straight_icons)) >= 5:
             self.straight = straight
             return True, 'Straight ' + str(self.straight) + ' !'
         else:

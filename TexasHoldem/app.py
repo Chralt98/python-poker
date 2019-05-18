@@ -14,17 +14,17 @@ def print_poker():
     print('Main player cards: ' + str(game.get_main_player_cards()))
     print('Table open cards: ' + str(game.get_table_open_cards()))
     ranking = rankings.Rankings()
-    print('Hand Rank (0 is Royal Flush) => Your Rank: ' + str(ranking.recognize_hand_ranking()) + ' !')
+    print('Hand Rank => Your Rank: ' + str(ranking.recognize_hand_ranking()) + ' !')
     print('---------------------------------------------COUNTS--------------------------------------------------------')
     counts = possibility.Possibility()
     counts.get_hand_ranking_counts()
 
 
 if __name__ == '__main__':
-    # Diamonds ('D'), Clubs ('C'), Hearts ('H'), Spades ('S')
+    # Diamonds ('D'), Clubs ('C') Kreuz, Hearts ('H'), Spades ('S') Piek
     # Jack ('J'), Queen ('Q'), King ('K'), Ass ('A')
     # TODO ('SUIT', 'ICON')
-    game.distribute_cards([('D', '7'), ('H', '8')])
-    game.flop_cards(('H', 'J'), ('D', '6'), ('C', '8'), ('S', '3'), ('S', '2'))
+    game.distribute_cards([('D', 'K'), ('D', '3')])
+    game.flop_cards(('H', '10'), ('S', 'K'), ('C', 'J'), ('S', '10'), ('D', 'Q'))
 
     print_poker()

@@ -5,122 +5,6 @@ from collections import Counter
 class Rankings(Deck):
     straight = []
 
-    @staticmethod
-    def get_card_weight(card):
-        if card[1] is '2':
-            weight = 2
-        elif card[1] is '3':
-            weight = 3
-        elif card[1] is '4':
-            weight = 4
-        elif card[1] is '5':
-            weight = 5
-        elif card[1] is '6':
-            weight = 6
-        elif card[1] is '7':
-            weight = 7
-        elif card[1] is '8':
-            weight = 8
-        elif card[1] is '9':
-            weight = 9
-        elif card[1] is '10':
-            weight = 10
-        elif card[1] is 'J':
-            weight = 11
-        elif card[1] is 'Q':
-            weight = 12
-        elif card[1] is 'K':
-            weight = 13
-        elif card[1] is 'A':
-            weight = 14
-        else:
-            weight = 0
-        return weight
-
-    @staticmethod
-    def get_card_out_of_weight(icon):
-        if icon is 2:
-            weight = '2'
-        elif icon is 3:
-            weight = '3'
-        elif icon is 4:
-            weight = '4'
-        elif icon is 5:
-            weight = '5'
-        elif icon is 6:
-            weight = '6'
-        elif icon is 7:
-            weight = '7'
-        elif icon is 8:
-            weight = '8'
-        elif icon is 9:
-            weight = '9'
-        elif icon is 10:
-            weight = '10'
-        elif icon is 11:
-            weight = 'J'
-        elif icon is 12:
-            weight = 'Q'
-        elif icon is 13:
-            weight = 'K'
-        elif icon is 14:
-            weight = 'A'
-        else:
-            weight = '1'
-            print('No possible number of card.')
-        return weight
-
-    def recognize_hand_ranking(self):
-        if self.get_royal_flush()[0]:
-            print()
-            print('--royal-flush------')
-            print(self.get_royal_flush()[1])
-            return 0
-        elif self.get_straight_flush()[0]:
-            print()
-            print('--straight-flush---')
-            print(self.get_straight_flush()[1])
-            return 1
-        elif self.get_four_of_a_kind()[0]:
-            print()
-            print('--four-of-a-kind--')
-            print(self.get_four_of_a_kind()[1])
-            return 2
-        elif self.get_full_house()[0]:
-            print()
-            print('---full-house----')
-            print(self.get_full_house()[1])
-            return 3
-        elif self.get_flush()[0]:
-            print()
-            print('------flush------')
-            print(self.get_flush()[1])
-            return 4
-        elif self.get_straight()[0]:
-            print()
-            print('-----straight----')
-            print(self.get_straight()[1])
-            return 5
-        elif self.get_three_of_a_kind()[0]:
-            print()
-            print('-three-of-a-kind-')
-            print(self.get_three_of_a_kind()[1])
-            return 6
-        elif self.get_two_pairs()[0]:
-            print()
-            print('----two-pairs---')
-            print(self.get_two_pairs()[1])
-            return 7
-        elif self.get_pair()[0]:
-            print()
-            print('----one-pair----')
-            print(self.get_pair()[1])
-            return 8
-        else:
-            print()
-            print('Highest card ' + str(self.get_high_card()[1]) + ' !')
-            return 9
-
     def get_high_card(self):
         if self.get_card_weight(self.main_player_cards[0]) < self.get_card_weight(self.main_player_cards[1]):
             return self.main_player_cards[1]
@@ -225,3 +109,119 @@ class Rankings(Deck):
             return True, 'Royal Flush ' + str(self.get_main_player_visible_cards()) + ' !'
         else:
             return False,
+
+    @staticmethod
+    def get_card_weight(card):
+        if card[1] is '2':
+            weight = 2
+        elif card[1] is '3':
+            weight = 3
+        elif card[1] is '4':
+            weight = 4
+        elif card[1] is '5':
+            weight = 5
+        elif card[1] is '6':
+            weight = 6
+        elif card[1] is '7':
+            weight = 7
+        elif card[1] is '8':
+            weight = 8
+        elif card[1] is '9':
+            weight = 9
+        elif card[1] is '10':
+            weight = 10
+        elif card[1] is 'J':
+            weight = 11
+        elif card[1] is 'Q':
+            weight = 12
+        elif card[1] is 'K':
+            weight = 13
+        elif card[1] is 'A':
+            weight = 14
+        else:
+            weight = 0
+        return weight
+
+    @staticmethod
+    def get_card_out_of_weight(icon):
+        if icon is 2:
+            weight = '2'
+        elif icon is 3:
+            weight = '3'
+        elif icon is 4:
+            weight = '4'
+        elif icon is 5:
+            weight = '5'
+        elif icon is 6:
+            weight = '6'
+        elif icon is 7:
+            weight = '7'
+        elif icon is 8:
+            weight = '8'
+        elif icon is 9:
+            weight = '9'
+        elif icon is 10:
+            weight = '10'
+        elif icon is 11:
+            weight = 'J'
+        elif icon is 12:
+            weight = 'Q'
+        elif icon is 13:
+            weight = 'K'
+        elif icon is 14:
+            weight = 'A'
+        else:
+            weight = '1'
+            print('No possible number of card.')
+        return weight
+
+    def recognize_hand_ranking(self):
+        if self.get_royal_flush()[0]:
+            # print()
+            # print('--royal-flush------')
+            # print(self.get_royal_flush()[1])
+            return 0
+        elif self.get_straight_flush()[0]:
+            # print()
+            # print('--straight-flush---')
+            # print(self.get_straight_flush()[1])
+            return 1
+        elif self.get_four_of_a_kind()[0]:
+            # print()
+            # print('--four-of-a-kind--')
+            # print(self.get_four_of_a_kind()[1])
+            return 2
+        elif self.get_full_house()[0]:
+            # print()
+            # print('---full-house----')
+            # print(self.get_full_house()[1])
+            return 3
+        elif self.get_flush()[0]:
+            # print()
+            # print('------flush------')
+            # print(self.get_flush()[1])
+            return 4
+        elif self.get_straight()[0]:
+            # print()
+            # print('-----straight----')
+            # print(self.get_straight()[1])
+            return 5
+        elif self.get_three_of_a_kind()[0]:
+            # print()
+            # print('-three-of-a-kind-')
+            # print(self.get_three_of_a_kind()[1])
+            return 6
+        elif self.get_two_pairs()[0]:
+            # print()
+            # print('----two-pairs---')
+            # print(self.get_two_pairs()[1])
+            return 7
+        elif self.get_pair()[0]:
+            # print()
+            # print('----one-pair----')
+            # print(self.get_pair()[1])
+            return 8
+        else:
+            # print()
+            # print('Highest card ' + str(self.get_high_card()[1]) + ' !')
+            return 9

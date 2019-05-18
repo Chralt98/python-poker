@@ -18,13 +18,14 @@ def print_poker():
     print('---------------------------------------------COUNTS--------------------------------------------------------')
     counts = possibility.Possibility()
     counts.get_hand_ranking_counts()
+    print('-----------------------------------------------------------------------------------------------------------')
 
 
 if __name__ == '__main__':
     # Diamonds ('D'), Clubs ('C') Kreuz, Hearts ('H'), Spades ('S') Piek
     # Jack ('J'), Queen ('Q'), King ('K'), Ass ('A')
     # TODO ('SUIT', 'ICON')
-    game.distribute_cards([('D', 'K'), ('D', '3')])
-    game.flop_cards(('H', '10'), ('S', 'K'), ('C', 'J'), ('S', '10'), ('D', 'Q'))
+    game.distribute_cards([('S', '6'), ('S', '5')])
+    game.flop_cards(('H', '2'), ('H', '3'), ('D', '6'), ('C', 'K'), ('S', '4'))
 
     print_poker()

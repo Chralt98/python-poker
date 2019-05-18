@@ -1,6 +1,6 @@
-from TexasHoldem import deck
-from TexasHoldem import player
-from TexasHoldem import rankings
+import deck
+import player
+import rankings
 
 
 class Game:

@@ -1,4 +1,4 @@
-from TexasHoldem.deck import Deck
+from deck import Deck
 from collections import Counter
 
 

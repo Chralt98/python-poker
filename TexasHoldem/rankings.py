@@ -48,8 +48,9 @@ class Rankings(Deck):
         return False
 
     def get_straight(self):
-        cards = [(i[0], i[1]) for i in self.get_main_player_visible_cards()]
+        cards = [(i[0], self.get_card_weight(i)) for i in self.get_main_player_visible_cards()]
         cards = sorted(cards, key=lambda tup: tup[1])
+        cards = [(i[0], self.get_card_out_of_weight(i[1])) for i in cards]
         straight = [cards[0]]
         i = 1
         while i < len(cards):

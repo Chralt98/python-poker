@@ -1,6 +1,7 @@
 from rankings import Rankings
 import itertools
 
+
 class Possibility(Rankings):
     max_possibilities = 0
     royal_flushs = 0

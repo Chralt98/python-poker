@@ -8,6 +8,12 @@ class Deck:
     # cards of the main player
     main_player_cards = []
 
+    def clear_deck(self):
+        self.concealed_cards = []
+        self.table_open_cards = []
+        self.main_player_cards = []
+        self.create_deck()
+
     def create_deck(self):
         # Diamonds, Clubs, Hearts, Spades
         suits = {'D', 'C', 'H', 'S'}

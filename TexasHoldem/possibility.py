@@ -1,5 +1,5 @@
 from rankings import Rankings
-
+import itertools
 
 class Possibility(Rankings):
     max_possibilities = 0
@@ -20,16 +20,16 @@ class Possibility(Rankings):
     def get_hand_ranking_counts(self):
         i = 0
         original_main_player_cards = self.save_original_main_player_cards()
-        for y in self.get_concealed_cards():
-            for x in self.get_concealed_cards():
-                # TODO avoid symmetric pairs so not ('C','3') and ('D', 'K') AND ('D', 'K') and ('C','3')
-                if (x[0] is not y[0]) and (x[1] is not y[1]):
-                    i += 1
-                    self.add_main_player_card(x[0], x[1])
-                    self.add_main_player_card(y[0], y[1])
-                    typ = self.recognize_hand_ranking()
-                    self.recognize_typ(typ)
-                    self.remove_opponent_player_cards()
+
+        # combinations does not symmetric pairs and not same pairs
+        for card_pair in itertools.combinations(self.get_concealed_cards(), 2):
+            i += 1
+            self.add_main_player_card(card_pair[0][0], card_pair[0][1])
+            self.add_main_player_card(card_pair[1][0], card_pair[1][1])
+            typ = self.recognize_hand_ranking()
+            self.recognize_typ(typ)
+            self.remove_opponent_player_cards()
+
         self.set_main_player_cards(original_main_player_cards)
         self.max_possibilities = i
         print('Rank 0 Royal Flushs: ' + str(self.royal_flushs)

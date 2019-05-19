@@ -2,9 +2,8 @@ import rankings
 import possibility
 from game import Game
 
-NUMBER_OF_PLAYERS = 9
 
-game = Game(NUMBER_OF_PLAYERS)
+game = Game()
 
 
 def print_poker():
@@ -25,7 +24,7 @@ if __name__ == '__main__':
     # Diamonds ('D'), Clubs ('C') Kreuz, Hearts ('H'), Spades ('S') Piek
     # Jack ('J'), Queen ('Q'), King ('K'), Ass ('A')
     # TODO ('SUIT', 'ICON')
-    game.distribute_cards([('S', '6'), ('S', '5')])
-    game.flop_cards(('H', '2'), ('H', '3'), ('D', '6'), ('C', 'K'), ('S', '4'))
+    game.distribute_cards([('C', 'A'), ('H', 'Q')])
+    game.flop_cards(('D', 'K'), ('H', '3'), ('S', '2'), ('D', '8'), ('J', 'S'))
 
     print_poker()

@@ -2,7 +2,6 @@ from rankings import Rankings
 
 
 class Possibility(Rankings):
-    # 50 * 50 * 9 = 22500
     max_possibilities = 0
     royal_flushs = 0
     straight_flushs = 0

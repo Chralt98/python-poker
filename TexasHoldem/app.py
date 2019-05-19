@@ -14,8 +14,8 @@ def print_poker():
     print()
     print('Main player cards: ' + str(game.get_main_player_cards()))
     print('Table open cards: ' + str(game.get_table_open_cards()))
-    ranking = rankings.Rankings()
-    print('Hand Rank => Your Rank: ' + str(ranking.recognize_hand_ranking()) + ' !')
+    rank = rankings.Rankings()
+    print('Hand Rank => Your Rank: ' + str(rank.recognize_hand_ranking()) + ' !')
     print('------------------------------------OPPONENT-POSSIBILITIES-------------------------------------------------')
     counts = possibility.Possibility()
     counts.get_hand_ranking_counts()
@@ -76,31 +76,31 @@ class Window(Frame):
         self.selected_cards.append(hit)
         if len(self.selected_cards) == 2:
             game.distribute_cards(self.selected_cards)
-        if len(self.selected_cards) == 5:
+        elif len(self.selected_cards) == 5:
             game.flop_cards(self.selected_cards[2], self.selected_cards[3], self.selected_cards[4])
             print_poker()
-        if len(self.selected_cards) == 6:
+        elif len(self.selected_cards) == 6:
             game.flop_cards(self.selected_cards[2], self.selected_cards[3],
                             self.selected_cards[4], self.selected_cards[5])
             print_poker()
-        if len(self.selected_cards) == 7:
+        elif len(self.selected_cards) == 7:
             game.flop_cards(self.selected_cards[2], self.selected_cards[3],
                             self.selected_cards[4], self.selected_cards[5], self.selected_cards[6])
             print_poker()
-        if len(self.selected_cards) > 7:
-            self.stop_round()
+        elif len(self.selected_cards) > 7:
+            self.start_new_round()
         self.msg_text.set('{} selected.'
                           .format('nothing' if self.selected_cards is None else 'Cards {}'.format(self.selected_cards)))
 
     def clear_selected_card(self):
-        self.stop_round()
+        self.start_new_round()
         self.msg_text.set('{} selected.'
                           .format('nothing' if self.selected_cards is None else 'Cards {}'.format(self.selected_cards)))
 
-    def stop_round(self):
-        self.selected_cards =[]
-        game.stop_round()
-        for i in range(50):
+    def start_new_round(self):
+        game.reset_cards()
+        self.selected_cards = []
+        for i in range(30):
             print()
 
 
@@ -110,12 +110,11 @@ class Window(Frame):
 # game.distribute_cards([('C', 'J'), ('D', '10')])
 # game.flop_cards(('D', '8'), ('S', 'K'), ('H', 'A'), ('D', 'Q'))
 # print_poker()
-
 # This creates the main window of an application
 root = Tk()
 app = Window(root)
 root.title("Poker Possibilities")
-root.geometry("640x800")
+root.geometry("640x400")
 root.configure(background='grey')
 # Start the GUI
 root.mainloop()

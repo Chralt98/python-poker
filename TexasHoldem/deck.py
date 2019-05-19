@@ -8,12 +8,6 @@ class Deck:
     # cards of the main player
     main_player_cards = []
 
-    def clear_deck(self):
-        self.concealed_cards = []
-        self.table_open_cards = []
-        self.main_player_cards = []
-        self.create_deck()
-
     def create_deck(self):
         # Diamonds, Clubs, Hearts, Spades
         suits = {'D', 'C', 'H', 'S'}
@@ -48,6 +42,12 @@ class Deck:
             self.concealed_cards.append(card)
         self.main_player_cards = []
         return cards
+
+    def remove_open_table_cards(self):
+        cards = list(self.get_table_open_cards())
+        for card in cards:
+            self.concealed_cards.append(card)
+        self.table_open_cards = []
 
     def save_original_main_player_cards(self):
         cards = list(self.get_main_player_cards())

@@ -5,8 +5,9 @@ class Game:
     deck = deck.Deck()
     deck.create_deck()
 
-    def stop_round(self):
-        self.deck.clear_deck()
+    def reset_cards(self):
+        self.deck.remove_opponent_player_cards()
+        self.deck.remove_open_table_cards()
 
     def get_table_open_cards(self):
         return self.deck.get_table_open_cards()

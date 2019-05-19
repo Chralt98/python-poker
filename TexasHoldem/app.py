@@ -1,4 +1,3 @@
-import rankings
 import possibility
 from game import Game
 from tkinter import *
@@ -6,6 +5,7 @@ from collections import namedtuple
 
 Rect = namedtuple('Rect', 'x0, y0, x1, y1')
 game = Game()
+game.create_deck()
 
 
 def print_poker():
@@ -14,10 +14,9 @@ def print_poker():
     print()
     print('Main player cards: ' + str(game.get_main_player_cards()))
     print('Table open cards: ' + str(game.get_table_open_cards()))
-    rank = rankings.Rankings()
-    print('Hand Rank => Your Rank: ' + str(rank.recognize_hand_ranking()) + ' !')
-    print('------------------------------------OPPONENT-POSSIBILITIES-------------------------------------------------')
     counts = possibility.Possibility()
+    print('Hand Rank => Your Rank: ' + str(counts.recognize_hand_ranking()) + ' !')
+    print('------------------------------------OPPONENT-POSSIBILITIES-------------------------------------------------')
     counts.get_hand_ranking_counts()
     print('-----------------------------------------------------------------------------------------------------------')
 

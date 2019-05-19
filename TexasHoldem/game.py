@@ -1,25 +1,16 @@
-import deck
+from deck import Deck
 
 
-class Game:
-    deck = deck.Deck()
-    deck.create_deck()
-
+class Game(Deck):
     def reset_cards(self):
-        self.deck.remove_opponent_player_cards()
-        self.deck.remove_open_table_cards()
-
-    def get_table_open_cards(self):
-        return self.deck.get_table_open_cards()
-
-    def get_main_player_cards(self):
-        return self.deck.get_main_player_cards()
+        self.remove_opponent_player_cards()
+        self.remove_open_table_cards()
 
     def distribute_cards(self, pair):
-        self.deck.add_main_player_card(pair[0][0], pair[0][1])
-        self.deck.add_main_player_card(pair[1][0], pair[1][1])
+        self.add_main_player_card(pair[0][0], pair[0][1])
+        self.add_main_player_card(pair[1][0], pair[1][1])
 
     def flop_cards(self, *args):
         for arg in args:
-            self.deck.set_card_visible(arg[0], arg[1])
+            self.set_card_visible(arg[0], arg[1])
 

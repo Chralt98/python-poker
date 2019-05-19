@@ -76,7 +76,6 @@ class Window(Frame):
         self.selected_cards.append(hit)
         if len(self.selected_cards) == 2:
             game.distribute_cards(self.selected_cards)
-            print_poker()
         if len(self.selected_cards) == 5:
             game.flop_cards(self.selected_cards[2], self.selected_cards[3], self.selected_cards[4])
             print_poker()
@@ -89,16 +88,20 @@ class Window(Frame):
                             self.selected_cards[4], self.selected_cards[5], self.selected_cards[6])
             print_poker()
         if len(self.selected_cards) > 7:
-            self.selected_cards = []
-            game.stop_round()
+            self.stop_round()
         self.msg_text.set('{} selected.'
                           .format('nothing' if self.selected_cards is None else 'Cards {}'.format(self.selected_cards)))
 
     def clear_selected_card(self):
-        self.selected_cards = []
-        game.stop_round()
+        self.stop_round()
         self.msg_text.set('{} selected.'
                           .format('nothing' if self.selected_cards is None else 'Cards {}'.format(self.selected_cards)))
+
+    def stop_round(self):
+        self.selected_cards =[]
+        game.stop_round()
+        for i in range(50):
+            print()
 
 
 # Diamonds ('D'), Clubs ('C') Kreuz, Hearts ('H'), Spades ('S') Piek

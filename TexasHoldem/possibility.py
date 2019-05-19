@@ -20,7 +20,8 @@ class Possibility(Rankings):
 
     def get_hand_ranking_counts(self):
         i = 0
-        main_player_cards = self.remove_main_player_cards()
+        main_player_cards = self.remove_opponent_player_cards()
+        self.remove_from_concealed_cards(main_player_cards)
         for y in self.get_concealed_cards():
             for x in self.get_concealed_cards():
                 i += 1
@@ -28,7 +29,7 @@ class Possibility(Rankings):
                 self.add_main_player_card(y[0], y[1])
                 typ = self.recognize_hand_ranking()
                 self.recognize_typ(typ)
-                self.remove_main_player_cards()
+                self.remove_opponent_player_cards()
         self.set_main_player_cards(main_player_cards)
         self.max_possibilities = i
         print('Rank 0 Royal Flushs: ' + str(self.royal_flushs)

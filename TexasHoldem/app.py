@@ -15,7 +15,7 @@ def print_poker():
     print('Table open cards: ' + str(game.get_table_open_cards()))
     ranking = rankings.Rankings()
     print('Hand Rank => Your Rank: ' + str(ranking.recognize_hand_ranking()) + ' !')
-    print('---------------------------------------------COUNTS--------------------------------------------------------')
+    print('------------------------------------OPPONENT-POSSIBILITIES-------------------------------------------------')
     counts = possibility.Possibility()
     counts.get_hand_ranking_counts()
     print('-----------------------------------------------------------------------------------------------------------')

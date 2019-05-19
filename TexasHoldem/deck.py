@@ -43,19 +43,21 @@ class Deck:
             print('Card is not in concealed cards.')
 
     def set_main_player_cards(self, cards):
-        for card in cards:
-            self.concealed_cards.remove(card)
         self.main_player_cards = cards
 
-    def remove_main_player_cards(self):
-        cards = self.get_main_player_cards()
-        for card in self.get_main_player_cards():
-            self.main_player_cards.remove(card)
+    def remove_opponent_player_cards(self):
+        cards = list(self.get_main_player_cards())
+        for card in cards:
             self.concealed_cards.append(card)
+        self.main_player_cards = []
         return cards
 
     def get_main_player_cards(self):
         return self.main_player_cards
+
+    def remove_from_concealed_cards(self, cards):
+        for card in cards:
+            self.concealed_cards.remove(card)
 
     def get_table_open_cards(self):
         return self.table_open_cards
@@ -72,6 +74,9 @@ class Deck:
 
     def get_number_of_active_cards(self):
         return self.number_of_active_cards
+
+    def get_number_of_main_player_cards(self):
+        return len(self.main_player_cards)
 
     def get_number_of_open_cards(self):
         return len(self.table_open_cards)

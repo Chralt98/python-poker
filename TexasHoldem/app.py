@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # Diamonds ('D'), Clubs ('C') Kreuz, Hearts ('H'), Spades ('S') Piek
     # Jack ('J'), Queen ('Q'), King ('K'), Ass ('A')
     # TODO ('SUIT', 'ICON')
-    game.distribute_cards([('C', 'A'), ('H', '9')])
-    game.flop_cards(('D', 'K'), ('H', 'Q'), ('S', 'J'), ('D', '10'), ('H', 'J'))
+    game.distribute_cards([('D', 'K'), ('C', 'K')])
+    game.flop_cards(('C', 'Q'), ('C', 'J'), ('C', '10'), ('D', '10'), ('H', '10'))
 
     print_poker()

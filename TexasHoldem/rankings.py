@@ -32,7 +32,7 @@ class Rankings(Deck):
             if c[1] == 2:
                 i += 1
                 pairs.append(c[0])
-        if i == 2:
+        if i >= 2:
             return True
         else:
             return False

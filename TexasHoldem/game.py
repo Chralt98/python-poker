@@ -3,6 +3,7 @@ import deck
 
 class Game:
     deck = deck.Deck()
+    deck.create_deck()
 
     def get_table_open_cards(self):
         return self.deck.get_table_open_cards()

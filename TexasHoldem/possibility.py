@@ -19,17 +19,18 @@ class Possibility(Rankings):
 
     def get_hand_ranking_counts(self):
         i = 0
-        main_player_cards = self.remove_opponent_player_cards()
-        self.remove_from_concealed_cards(main_player_cards)
+        original_main_player_cards = self.save_original_main_player_cards()
         for y in self.get_concealed_cards():
             for x in self.get_concealed_cards():
-                i += 1
-                self.add_main_player_card(x[0], x[1])
-                self.add_main_player_card(y[0], y[1])
-                typ = self.recognize_hand_ranking()
-                self.recognize_typ(typ)
-                self.remove_opponent_player_cards()
-        self.set_main_player_cards(main_player_cards)
+                # TODO avoid symmetric pairs so not ('C','3') and ('D', 'K') AND ('D', 'K') and ('C','3')
+                if (x[0] is not y[0]) and (x[1] is not y[1]):
+                    i += 1
+                    self.add_main_player_card(x[0], x[1])
+                    self.add_main_player_card(y[0], y[1])
+                    typ = self.recognize_hand_ranking()
+                    self.recognize_typ(typ)
+                    self.remove_opponent_player_cards()
+        self.set_main_player_cards(original_main_player_cards)
         self.max_possibilities = i
         print('Rank 0 Royal Flushs: ' + str(self.royal_flushs)
               + ', possiblity: ' + self.calculate_possibility(self.royal_flushs))

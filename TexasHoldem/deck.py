@@ -7,7 +7,7 @@ class Deck:
     # cards of the main player
     main_player_cards = []
 
-    def __init__(self):
+    def create_deck(self):
         # Diamonds, Clubs, Hearts, Spades
         suits = {'D', 'C', 'H', 'S'}
         # Jack, Queen, King, Ass
@@ -22,7 +22,7 @@ class Deck:
             self.table_open_cards.append((suit, icon))
             self.concealed_cards.remove((suit, icon))
         else:
-            print('Card is not in concealed cards.')
+            print('Card is not in concealed cards. Set card visible...')
 
     def get_main_player_visible_cards(self):
         return self.get_main_player_cards() + self.get_table_open_cards()
@@ -31,8 +31,6 @@ class Deck:
         if (suit, icon) in self.concealed_cards:
             self.main_player_cards.append((suit, icon))
             self.concealed_cards.remove((suit, icon))
-        else:
-            print('Card is not in concealed cards.')
 
     def set_main_player_cards(self, cards):
         self.main_player_cards = cards
@@ -44,12 +42,13 @@ class Deck:
         self.main_player_cards = []
         return cards
 
+    def save_original_main_player_cards(self):
+        cards = list(self.get_main_player_cards())
+        self.main_player_cards = []
+        return cards
+
     def get_main_player_cards(self):
         return self.main_player_cards
-
-    def remove_from_concealed_cards(self, cards):
-        for card in cards:
-            self.concealed_cards.remove(card)
 
     def get_table_open_cards(self):
         return self.table_open_cards

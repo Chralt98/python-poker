@@ -91,7 +91,7 @@ class Rankings(Deck):
             icons.append(card[1])
         counter = Counter(icons)
         for c in counter.items():
-            if c[1] == 4:
+            if c[1] >= 4:
                 return True
         return False
 

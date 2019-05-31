@@ -75,6 +75,7 @@ class Window(Frame):
         self.selected_cards.append(hit)
         if len(self.selected_cards) == 2:
             game.distribute_cards(self.selected_cards)
+            print_poker()
         elif len(self.selected_cards) == 5:
             game.flop_cards(self.selected_cards[2], self.selected_cards[3], self.selected_cards[4])
             print_poker()

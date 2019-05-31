@@ -4,6 +4,7 @@ from collections import Counter
 
 class Rankings(Deck):
     straight = []
+    straight_flush = []
 
     def get_high_card(self):
         if self.get_card_weight(self.main_player_cards[0]) < self.get_card_weight(self.main_player_cards[1]):
@@ -80,10 +81,20 @@ class Rankings(Deck):
         return False
 
     def get_full_house(self):
-        if self.get_three_of_a_kind() and self.get_pair():
+        icons = []
+        for card in self.get_main_player_visible_cards():
+            icons.append(card[1])
+        counter = Counter(icons)
+        pairs = 0
+        three_of_a_kinds = 0
+        for c in counter.items():
+            if c[1] == 3:
+                three_of_a_kinds += 1
+            if c[1] == 2:
+                pairs += 1
+        if (pairs >= 1 and three_of_a_kinds == 1) or three_of_a_kinds == 2:
             return True
-        else:
-            return False
+        return False
 
     def get_four_of_a_kind(self):
         icons = []
@@ -96,19 +107,45 @@ class Rankings(Deck):
         return False
 
     def get_straight_flush(self):
-        self.get_straight()
         suits = []
-        for card in self.straight:
+        for card in self.get_main_player_visible_cards():
             suits.append(card[0])
         counter = Counter(suits)
+        most_common_suit = 'placeholder'
         for c in counter.items():
             if c[1] >= 5:
-                return True
-        return False
+                most_common_suit = str(c[0])
+        if most_common_suit == 'placeholder':
+            return False
+        cards = []
+        for card in self.get_main_player_visible_cards():
+            if card[0] == most_common_suit:
+                cards.append(card)
+        # second straight check for suits
+        cards = [(i[0], self.get_card_weight(i)) for i in cards]
+        cards = sorted(cards, key=lambda tup: tup[1])
+        cards = [(i[0], self.get_card_out_of_weight(i[1])) for i in cards]
+        straight = [cards[0]]
+        i = 1
+        while i < len(cards):
+            if (self.get_card_weight(cards[i]) - self.get_card_weight(straight[-1])) <= 1:
+                straight.append((cards[i][0], cards[i][1]))
+                i += 1
+            else:
+                if len(straight) < 5:
+                    straight.clear()
+                    straight.append((cards[i][0], cards[i][1]))
+                i += 1
+        straight_icons = [self.get_card_weight(i) for i in straight]
+        if len(set(straight_icons)) >= 5:
+            self.straight_flush = straight
+            return True
+        else:
+            return False
 
     def get_royal_flush(self):
-        self.get_straight()
-        if self.get_straight_flush() and 'A' in [s[1] for s in self.straight]:
+        self.get_straight_flush()
+        if self.get_straight_flush() and 'A' in [s[1] for s in self.straight_flush]:
             return True
         else:
             return False

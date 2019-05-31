@@ -1,4 +1,3 @@
-import possibility
 from game import Game
 from tkinter import *
 from collections import namedtuple

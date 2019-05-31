@@ -1,5 +1,3 @@
-
-
 class Deck:
     # cards which the main player can not see for example every card at beginning
     concealed_cards = []

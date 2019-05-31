@@ -15,4 +15,3 @@ class Game(Possibility):
     def flop_cards(self, *args):
         for arg in args:
             self.set_card_visible(arg[0], arg[1])
-

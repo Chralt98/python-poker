@@ -51,7 +51,7 @@ class Window(Frame):
         self.msg = Message(self, textvariable=self.msg_text, width=640)
         self.msg.grid(row=0, column=0)
 
-        self.picture = PhotoImage(file='card_deck.png')
+        self.picture = PhotoImage(file='TexasHoldem/card_deck.png')
         img_rects = []
         for y in range(4):
             for x in range(13):

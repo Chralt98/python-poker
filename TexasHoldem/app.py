@@ -14,10 +14,9 @@ def print_poker():
     print()
     print('Main player cards: ' + str(game.get_main_player_cards()))
     print('Table open cards: ' + str(game.get_table_open_cards()))
-    counts = possibility.Possibility()
-    print('Hand Rank => Your Rank: ' + str(counts.recognize_hand_ranking()) + ' !')
+    print('Hand Rank => Your Rank: ' + str(game.recognize_hand_ranking()) + ' !')
     print('------------------------------------OPPONENT-POSSIBILITIES-------------------------------------------------')
-    counts.get_hand_ranking_counts()
+    game.get_hand_ranking_counts()
     print('-----------------------------------------------------------------------------------------------------------')
 
 
@@ -98,7 +97,7 @@ class Window(Frame):
                           .format('nothing' if self.selected_cards is None else 'Cards {}'.format(self.selected_cards)))
 
     def start_new_round(self):
-        game.reset_cards()
+        game.reset()
         self.selected_cards = []
         for i in range(30):
             print()

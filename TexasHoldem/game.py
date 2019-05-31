@@ -1,10 +1,12 @@
-from deck import Deck
+from possibility import Possibility
 
 
-class Game(Deck):
-    def reset_cards(self):
+class Game(Possibility):
+    def reset(self):
         self.remove_opponent_player_cards()
         self.remove_open_table_cards()
+        self.clear_straights()
+        self.reset_possibilities()
 
     def distribute_cards(self, pair):
         self.add_main_player_card(pair[0][0], pair[0][1])

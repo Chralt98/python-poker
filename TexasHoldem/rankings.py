@@ -6,6 +6,10 @@ class Rankings(Deck):
     straight = []
     straight_flush = []
 
+    def clear_straights(self):
+        self.straight = []
+        self.straight_flush = []
+
     def get_high_card(self):
         if self.get_card_weight(self.main_player_cards[0]) < self.get_card_weight(self.main_player_cards[1]):
             return self.main_player_cards[1]

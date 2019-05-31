@@ -15,13 +15,25 @@ class Possibility(Rankings):
     one_pairs = 0
     high_cards = 0
 
+    def reset_possibilities(self):
+        self.max_possibilities = 0
+        self.royal_flushs = 0
+        self.straight_flushs = 0
+        self.four_of_a_kinds = 0
+        self.full_houses = 0
+        self.flushs = 0
+        self.straights = 0
+        self.three_of_a_kinds = 0
+        self.two_pairs = 0
+        self.one_pairs = 0
+        self.high_cards = 0
+
     def calculate_possibility(self, amount):
         return str(100 * float(amount) / float(self.max_possibilities)) + str(' %')
 
     def get_hand_ranking_counts(self):
         i = 0
         original_main_player_cards = self.save_original_main_player_cards()
-
         # combinations does not symmetric pairs and not same pairs
         for card_pair in itertools.combinations(self.get_concealed_cards(), 2):
             i += 1
@@ -54,7 +66,9 @@ class Possibility(Rankings):
         print('Rank 9 High Cards: ' + str(self.high_cards)
               + ', possiblity: ' + self.calculate_possibility(self.high_cards))
         print()
-        print('MAX Possibilities: ' + str(i))
+        print('MAX Possibilities: ' + str(self.max_possibilities))
+
+        self.reset_possibilities()
 
     def recognize_typ(self, typ):
         if typ is 0:

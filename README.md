@@ -8,6 +8,9 @@
 4. **fifth card** is the river, also part of table open visible cards.
 5. **sixth card** restarts the round. Deck is shuffled.
 
+**New:**
+Burn cards with right click!
+
 **optional:** You can also restart the round with the button CLEAR.
 
 * You can see the probabilities for hand rankings in the terminal.

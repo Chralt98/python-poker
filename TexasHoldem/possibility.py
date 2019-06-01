@@ -29,6 +29,8 @@ class Possibility(Rankings):
         self.high_cards = 0
 
     def calculate_possibility(self, amount):
+        if self.max_possibilities is 0:
+            return '0 %'
         return str(100 * float(amount) / float(self.max_possibilities)) + str(' %')
 
     def get_hand_ranking_counts(self):

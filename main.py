@@ -39,7 +39,9 @@ class ImageMapper(object):
 class Window(Frame):
     selected_cards = []
     canvas_rectangles = []
-    colors = {0: 'LightGreen', 1: 'LightGreen', 2: 'red', 3: 'red', 4: 'red', 5: 'red', 6: 'red'}
+    burned_cards = []
+    canvas_burned_rectangles = []
+    colors = {0: 'LightGreen', 1: 'LightGreen', 2: 'red', 3: 'red', 4: 'red', 5: 'red', 6: 'red', 7: 'lightgrey'}
     cards = {0: ('C', 'A'), 1: ('C', '2'), 2: ('C', '3'), 3: ('C', '4'), 4: ('C', '5'), 5: ('C', '6'),
              6: ('C', '7'), 7: ('C', '8'), 8: ('C', '9'), 9: ('C', '10'), 10: ('C', 'J'), 11: ('C', 'Q'),
              12: ('C', 'K'), 13: ('D', 'A'), 14: ('D', '2'), 15: ('D', '3'), 16: ('D', '4'), 17: ('D', '5'),
@@ -74,13 +76,29 @@ class Window(Frame):
 
         self.canvas.create_image(0, 0, image=self.picture, anchor=NW)
         self.canvas.bind('<Button-1>', self.image_click)
+        self.canvas.bind("<Button-3>", self.rightclick)
         self.canvas.grid(row=2, column=0)
+
+    def rightclick(self, event):
+        x0 = self.image_mapper.find_rect(event.x, event.y)[1]
+        x1 = self.image_mapper.find_rect(event.x, event.y)[2]
+        y0 = self.image_mapper.find_rect(event.x, event.y)[3]
+        y1 = self.image_mapper.find_rect(event.x, event.y)[4]
+        hit = self.image_mapper.find_rect(event.x, event.y)[0]
+        card = self.cards[hit]
+        if card in self.burned_cards or card in self.selected_cards:
+            return
+        game.burn_card(card)
+        self.burned_cards.append(card)
+        self.canvas_burned_rectangles.append(self.canvas.create_rectangle(x0, y0, x1, y1, fill=self.colors[7]))
+        if len(self.selected_cards) >= 2:
+            print_poker()
 
     def image_click(self, event):
         hit = self.image_mapper.find_rect(event.x, event.y)[0]
         hit = self.cards[hit]
         # avoid double selection
-        if hit in self.selected_cards:
+        if hit in self.selected_cards or hit in self.burned_cards:
             return
         self.selected_cards.append(hit)
         if len(self.selected_cards) == 2:
@@ -125,8 +143,12 @@ class Window(Frame):
     def start_new_round(self):
         for r in self.canvas_rectangles:
             self.canvas.delete(r)
+        for b in self.canvas_burned_rectangles:
+            self.canvas.delete(b)
         game.reset()
         self.selected_cards = []
+        self.canvas_burned_rectangles = []
+        self.burned_cards = []
         print_clear()
 
 

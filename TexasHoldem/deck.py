@@ -5,6 +5,7 @@ class Deck:
     table_open_cards = []
     # cards of the main player
     main_player_cards = []
+    burned_cards = []
 
     def create_deck(self):
         # Diamonds, Clubs, Hearts, Spades
@@ -69,3 +70,15 @@ class Deck:
 
     def get_concealed_cards(self):
         return self.concealed_cards
+
+    def burn_one_card(self, card):
+        if card in self.concealed_cards:
+            self.burned_cards.append(card)
+            self.concealed_cards.remove(card)
+        else:
+            print('Burn card is not in concealed cards!')
+
+    def remove_burned_cards(self):
+        for card in self.burned_cards:
+            self.concealed_cards.append(card)
+        self.burned_cards = []

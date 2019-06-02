@@ -13,6 +13,7 @@ Burn cards with right click! Pre flop hand ranking.
 Ace low straight added. 
 Main to opponent player comparison.
 Added probability to get a specific hand ranking after flop.
+Added chance to get a better rank.
 
 **optional:** You can also restart the round with the button CLEAR.
 

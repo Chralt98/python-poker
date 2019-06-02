@@ -72,10 +72,11 @@ class Possibility(Rankings):
             return 10
 
     def compare_main_player_to_opponents(self):
-        main_player_rank = self.recognize_hand_ranking()
         opponents_possibilities = {0: self.royal_flushs, 1: self.straight_flushs, 2: self.four_of_a_kinds,
-                                   3: self.full_houses, 4: self.flushs, 5: self.straights, 6: self.three_of_a_kinds,
+                                   3: self.full_houses, 4: self.flushs, 5: self.straights,
+                                   6: self.three_of_a_kinds,
                                    7: self.two_pairs, 8: self.one_pairs, 9: self.high_cards}
+        main_player_rank = self.recognize_hand_ranking()
         percent_sum = 0
         for rank in opponents_possibilities:
             if rank < main_player_rank:
@@ -121,6 +122,7 @@ class Possibility(Rankings):
         two_pair_possiblity = self.calculate_possibility(self.two_pairs)
         one_pair_possibiliy = self.calculate_possibility(self.one_pairs)
         high_card_possibility = self.calculate_possibility(self.high_cards)
+
         if royal_flush_possiblity != float(0):
             print('royal flush: ' + str(royal_flush_possiblity) + ' %')
         if straight_flush_possiblity != float(0):
@@ -141,7 +143,15 @@ class Possibility(Rankings):
             print('one pair: ' + str(one_pair_possibiliy) + ' %')
         if high_card_possibility != float(0):
             print('high card: ' + str(high_card_possibility) + ' %')
-        print()
+        opponents_possibilities = {0: self.royal_flushs, 1: self.straight_flushs, 2: self.four_of_a_kinds,
+                                   3: self.full_houses, 4: self.flushs, 5: self.straights,
+                                   6: self.three_of_a_kinds,
+                                   7: self.two_pairs, 8: self.one_pairs, 9: self.high_cards}
+        main_player_hand_ranking = self.recognize_hand_ranking()
+        percent_sum = float(0)
+        for i in range(main_player_hand_ranking):
+            percent_sum += self.calculate_possibility(opponents_possibilities[i])
+        print('Your chance to get a better rank: ' + str(percent_sum) + '  %.')
         self.reset_possibilities()
 
     def get_hand_ranking_counts(self):

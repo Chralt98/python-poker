@@ -30,8 +30,8 @@ class Possibility(Rankings):
 
     def calculate_possibility(self, amount):
         if self.max_possibilities is 0:
-            return '0 %'
-        return str(100 * float(amount) / float(self.max_possibilities)) + str(' %')
+            return 0
+        return 100 * float(amount) / float(self.max_possibilities)
 
     def pre_flop_hand_analyze(self):
         if self.get_main_player_cards()[0][1] is self.get_main_player_cards()[1][1]:
@@ -71,6 +71,19 @@ class Possibility(Rankings):
                 return pairs[tuple2]
             return 10
 
+    def compare_main_player_to_opponents(self):
+        main_player_rank = self.recognize_hand_ranking()
+        opponents_possibilities = {0: self.royal_flushs, 1: self.straight_flushs, 2: self.four_of_a_kinds,
+                                   3: self.full_houses, 4: self.flushs, 5: self.straights, 6: self.three_of_a_kinds,
+                                   7: self.two_pairs, 8: self.one_pairs, 9: self.high_cards}
+        percent_sum = 0
+        for rank in opponents_possibilities:
+            if rank < main_player_rank:
+                percent_sum += self.calculate_possibility(opponents_possibilities[rank])
+        print(str(percent_sum) + ' % of opponent player possibilities for hand rankings are better than yours!')
+        print('The probability that an opponent has the same hand ranking as you is: '
+              + str(self.calculate_possibility(opponents_possibilities[main_player_rank])) + ' %')
+
     def get_hand_ranking_counts(self):
         i = 0
         original_main_player_cards = self.save_original_main_player_cards()
@@ -86,27 +99,29 @@ class Possibility(Rankings):
         self.set_main_player_cards(original_main_player_cards)
         self.max_possibilities = i
         print('Rank 0 Royal Flushs: ' + str(self.royal_flushs)
-              + ', possiblity: ' + self.calculate_possibility(self.royal_flushs))
+              + ', possiblity: ' + str(self.calculate_possibility(self.royal_flushs)) + ' %')
         print('Rank 1 Straight Flushs: ' + str(self.straight_flushs)
-              + ', possiblity: ' + self.calculate_possibility(self.straight_flushs))
+              + ', possiblity: ' + str(self.calculate_possibility(self.straight_flushs)) + ' %')
         print('Rank 2 Four of a kinds: ' + str(self.four_of_a_kinds)
-              + ', possiblity: ' + self.calculate_possibility(self.four_of_a_kinds))
+              + ', possiblity: ' + str(self.calculate_possibility(self.four_of_a_kinds)) + ' %')
         print('Rank 3 Full houses: ' + str(self.full_houses)
-              + ', possiblity: ' + self.calculate_possibility(self.full_houses))
+              + ', possiblity: ' + str(self.calculate_possibility(self.full_houses)) + ' %')
         print('Rank 4 Flushs: ' + str(self.flushs)
-              + ', possiblity: ' + self.calculate_possibility(self.flushs))
+              + ', possiblity: ' + str(self.calculate_possibility(self.flushs)) + ' %')
         print('Rank 5 Straights: ' + str(self.straights)
-              + ', possiblity: ' + self.calculate_possibility(self.straights))
+              + ', possiblity: ' + str(self.calculate_possibility(self.straights)) + ' %')
         print('Rank 6 Three of a kinds: ' + str(self.three_of_a_kinds)
-              + ', possiblity: ' + self.calculate_possibility(self.three_of_a_kinds))
+              + ', possiblity: ' + str(self.calculate_possibility(self.three_of_a_kinds)) + ' %')
         print('Rank 7 Two Pairs: ' + str(self.two_pairs)
-              + ', possiblity: ' + self.calculate_possibility(self.two_pairs))
+              + ', possiblity: ' + str(self.calculate_possibility(self.two_pairs)) + ' %')
         print('Rank 8 One Pairs: ' + str(self.one_pairs)
-              + ', possiblity: ' + self.calculate_possibility(self.one_pairs))
+              + ', possiblity: ' + str(self.calculate_possibility(self.one_pairs)) + ' %')
         print('Rank 9 High Cards: ' + str(self.high_cards)
-              + ', possiblity: ' + self.calculate_possibility(self.high_cards))
+              + ', possiblity: ' + str(self.calculate_possibility(self.high_cards)) + ' %')
         print()
         print('MAX Possibilities: ' + str(self.max_possibilities))
+        print()
+        self.compare_main_player_to_opponents()
 
         self.reset_possibilities()
 

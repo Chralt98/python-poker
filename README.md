@@ -9,7 +9,9 @@
 5. **sixth card** restarts the round. Deck is shuffled.
 
 **New:**
-Burn cards with right click! Pre flop hand ranking. Ace low straight added.
+Burn cards with right click! Pre flop hand ranking. 
+Ace low straight added. 
+Main to opponent player comparison.
 
 **optional:** You can also restart the round with the button CLEAR.
 

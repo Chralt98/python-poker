@@ -6,6 +6,9 @@ Rect = namedtuple('Rect', 'x0, y0, x1, y1')
 game = Game()
 game.create_deck()
 
+hand_ranking_names = {0: 'royal flush', 1: 'straight flush', 2: 'four of a kind', 3: 'full house', 4: 'flush',
+                      5: 'straight', 6: 'three of a kind', 7: 'two pair', 8: 'one pair', 9: 'high card'}
+
 
 def print_poker():
     print()
@@ -13,7 +16,9 @@ def print_poker():
     print()
     print('Main player cards: ' + str(game.get_main_player_cards()))
     print('Table open cards: ' + str(game.get_table_open_cards()))
-    print('Hand Rank => Your Rank: ' + str(game.recognize_hand_ranking()) + ' !')
+    print('Hand Rank => Your Rank: ' + str(game.recognize_hand_ranking()) + ', ' + str(
+        hand_ranking_names[game.recognize_hand_ranking()]).upper() + ' !')
+    print('Your pre flop rank (1 is best and 10 is worst): ' + str(game.pre_flop_hand_analyze()))
     print('------------------------------------OPPONENT-POSSIBILITIES-------------------------------------------------')
     game.get_hand_ranking_counts()
     print('-----------------------------------------------------------------------------------------------------------')
@@ -76,10 +81,10 @@ class Window(Frame):
 
         self.canvas.create_image(0, 0, image=self.picture, anchor=NW)
         self.canvas.bind('<Button-1>', self.image_click)
-        self.canvas.bind("<Button-3>", self.rightclick)
+        self.canvas.bind("<Button-3>", self.right_click)
         self.canvas.grid(row=2, column=0)
 
-    def rightclick(self, event):
+    def right_click(self, event):
         x0 = self.image_mapper.find_rect(event.x, event.y)[1]
         x1 = self.image_mapper.find_rect(event.x, event.y)[2]
         y0 = self.image_mapper.find_rect(event.x, event.y)[3]
@@ -104,8 +109,13 @@ class Window(Frame):
         if len(self.selected_cards) == 2:
             print_clear()
             game.distribute_cards(self.selected_cards)
+            print_poker()
             self.msg_text.set('{} selected.'.format('Cards {}'.format(self.selected_cards)))
             print_poker()
+            if game.pre_flop_hand_analyze() < 8:
+                print('Good pre flop hand. You should play!')
+            else:
+                print('Not a good idea to play with this pre flop hand. Bluff or fold!')
         elif len(self.selected_cards) == 5:
             print_clear()
             game.flop_cards(self.selected_cards[2], self.selected_cards[3], self.selected_cards[4])

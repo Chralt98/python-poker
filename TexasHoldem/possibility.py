@@ -33,6 +33,44 @@ class Possibility(Rankings):
             return '0 %'
         return str(100 * float(amount) / float(self.max_possibilities)) + str(' %')
 
+    def pre_flop_hand_analyze(self):
+        if self.get_main_player_cards()[0][1] is self.get_main_player_cards()[1][1]:
+            # super pairs, for example two Aces
+            super_pair = {'A': 1, 'K': 1, 'Q': 1, 'J': 1, '10': 2, '9': 3, '8': 4, '7': 5, '6': 6, '5': 6, '4': 7,
+                          '3': 7, '2': 7}
+            return super_pair[self.get_main_player_cards()[1][1]]
+
+        tuple1 = (self.get_main_player_cards()[0][1], self.get_main_player_cards()[1][1])
+        tuple2 = (self.get_main_player_cards()[1][1], self.get_main_player_cards()[0][1])
+
+        if self.get_main_player_cards()[0][0] is self.get_main_player_cards()[1][0]:
+            # same suited
+            pairs = {('A', 'K'): 1, ('A', 'Q'): 2, ('Q', 'K'): 2, ('J', 'A'): 2, ('J', 'K'): 3, ('J', 'Q'): 3,
+                     ('A', '10'): 3, ('K', '10'): 4, ('Q', '10'): 4, ('J', '10'): 3, ('A', '9'): 5, ('K', '9'): 6,
+                     ('Q', '9'): 5, ('J', '9'): 4, ('10', '9'): 4, ('J', '8'): 6, ('10', '8'): 5, ('9', '8'): 4,
+                     ('8', '7'): 5, ('7', '6'): 5, ('6', '5'): 5, ('5', '4'): 6,
+                     ('A', '8'): 5, ('A', '7'): 5, ('A', '6'): 5, ('A', '5'): 5, ('A', '4'): 5, ('A', '3'): 5,
+                     ('A', '2'): 5, ('K', '8'): 7, ('K', '7'): 7, ('K', '6'): 7, ('K', '5'): 7, ('K', '4'): 7,
+                     ('K', '3'): 7, ('K', '2'): 7, ('Q', '8'): 7, ('J', '7'): 8, ('10', '7'): 7, ('9', '7'): 5,
+                     ('9', '6'): 8, ('8', '6'): 6, ('8', '5'): 8, ('7', '5'): 7, ('7', '4'): 8, ('6', '4'): 7,
+                     ('5', '3'): 8, ('4', '3'): 7, ('4', '2'): 8, ('3', '2'): 8}
+            if tuple1 in pairs:
+                return pairs[tuple1]
+            if tuple2 in pairs:
+                return pairs[tuple2]
+            return 9
+        else:
+            # unsuited, not same suited
+            pairs = {('A', 'K'): 2, ('A', 'Q'): 3, ('Q', 'K'): 4, ('J', 'A'): 4, ('J', 'K'): 5, ('J', 'Q'): 5,
+                     ('A', '10'): 6, ('K', '10'): 6, ('Q', '10'): 6, ('J', '10'): 5, ('A', '9'): 8, ('K', '9'): 8,
+                     ('Q', '9'): 8, ('J', '9'): 7, ('10', '9'): 7, ('J', '8'): 8, ('10', '8'): 8, ('9', '8'): 7,
+                     ('8', '7'): 8, ('7', '6'): 8, ('6', '5'): 8, ('5', '4'): 8}
+            if tuple1 in pairs:
+                return pairs[tuple1]
+            if tuple2 in pairs:
+                return pairs[tuple2]
+            return 10
+
     def get_hand_ranking_counts(self):
         i = 0
         original_main_player_cards = self.save_original_main_player_cards()

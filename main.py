@@ -12,21 +12,23 @@ hand_ranking_names = {0: 'royal flush', 1: 'straight flush', 2: 'four of a kind'
 
 def print_poker():
     print()
-    print('-----------------------------------------TEXAS-HOLDEM-POKER------------------------------------------------')
+    print('---------TEXAS-HOLDEM-POKER--------')
     print()
     print('Main player cards: ' + str(game.get_main_player_cards()))
     print('Table open cards: ' + str(game.get_table_open_cards()))
     print('Hand Rank => Your Rank: ' + str(game.recognize_hand_ranking()) + ', ' + str(
         hand_ranking_names[game.recognize_hand_ranking()]).upper() + ' !')
     print('Your pre flop rank (1 is best and 10 is worst): ' + str(game.pre_flop_hand_analyze()))
-    print('------------------------------------OPPONENT-POSSIBILITIES-------------------------------------------------')
+    print('------OPPONENT-POSSIBILITIES-------')
     game.get_hand_ranking_counts()
-    print('-----------------------------------------------------------------------------------------------------------')
+    print('-----------------------------------')
 
 
-def print_clear():
-    for i in range(30):
-        print('\n')
+def new_print():
+    print()
+    print('###################################')
+    print('############# NEXT ################')
+    print('###################################')
 
 
 class ImageMapper(object):
@@ -107,30 +109,29 @@ class Window(Frame):
             return
         self.selected_cards.append(hit)
         if len(self.selected_cards) == 2:
-            print_clear()
+            new_print()
             game.distribute_cards(self.selected_cards)
             print_poker()
             self.msg_text.set('{} selected.'.format('Cards {}'.format(self.selected_cards)))
-            print_poker()
             if game.pre_flop_hand_analyze() < 8:
                 print('Good pre flop hand. You should play!')
             else:
                 print('Not a good idea to play with this pre flop hand. Bluff or fold!')
         elif len(self.selected_cards) == 5:
-            print_clear()
+            new_print()
             game.flop_cards(self.selected_cards[2], self.selected_cards[3], self.selected_cards[4])
             self.msg_text.set('{} selected.'.format('Cards {}'.format(self.selected_cards)))
             print_poker()
             game.get_main_player_hand_ranking_probability(2)
         elif len(self.selected_cards) == 6:
-            print_clear()
+            new_print()
             game.flop_cards(self.selected_cards[2], self.selected_cards[3],
                             self.selected_cards[4], self.selected_cards[5])
             self.msg_text.set('{} selected.'.format('Cards {}'.format(self.selected_cards)))
             print_poker()
             game.get_main_player_hand_ranking_probability(1)
         elif len(self.selected_cards) == 7:
-            print_clear()
+            new_print()
             game.flop_cards(self.selected_cards[2], self.selected_cards[3],
                             self.selected_cards[4], self.selected_cards[5], self.selected_cards[6])
             self.msg_text.set('{} selected.'.format('Cards {}'.format(self.selected_cards)))
@@ -161,7 +162,7 @@ class Window(Frame):
         self.selected_cards = []
         self.canvas_burned_rectangles = []
         self.burned_cards = []
-        print_clear()
+        new_print()
 
 
 # Diamonds ('D'), Clubs ('C') Kreuz, Hearts ('H'), Spades ('S') Piek
@@ -169,7 +170,6 @@ class Window(Frame):
 # TODO ('SUIT', 'ICON')
 # game.distribute_cards([('C', 'J'), ('D', '10')])
 # game.flop_cards(('D', '8'), ('S', 'K'), ('H', 'A'), ('D', 'Q'))
-# print_poker()
 # This creates the main window of an application
 root = Tk()
 app = Window(root)

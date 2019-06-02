@@ -109,9 +109,7 @@ class Possibility(Rankings):
 
         self.max_possibilities = i
 
-        print(
-            '--------------------------------------MAIN-PLAYER-CHANCE-TO-GET'
-            '--------------------------------------------')
+        print('-----MAIN-PLAYER-CHANCE-TO-GET-----')
         royal_flush_possiblity = self.calculate_possibility(self.royal_flushs)
         straight_flush_possiblity = self.calculate_possibility(self.straight_flushs)
         four_of_a_kind_possiblity = self.calculate_possibility(self.four_of_a_kinds)

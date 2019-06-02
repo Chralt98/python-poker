@@ -121,12 +121,14 @@ class Window(Frame):
             game.flop_cards(self.selected_cards[2], self.selected_cards[3], self.selected_cards[4])
             self.msg_text.set('{} selected.'.format('Cards {}'.format(self.selected_cards)))
             print_poker()
+            game.get_main_player_hand_ranking_probability(2)
         elif len(self.selected_cards) == 6:
             print_clear()
             game.flop_cards(self.selected_cards[2], self.selected_cards[3],
                             self.selected_cards[4], self.selected_cards[5])
             self.msg_text.set('{} selected.'.format('Cards {}'.format(self.selected_cards)))
             print_poker()
+            game.get_main_player_hand_ranking_probability(1)
         elif len(self.selected_cards) == 7:
             print_clear()
             game.flop_cards(self.selected_cards[2], self.selected_cards[3],

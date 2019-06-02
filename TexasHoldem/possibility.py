@@ -30,7 +30,7 @@ class Possibility(Rankings):
 
     def calculate_possibility(self, amount):
         if self.max_possibilities is 0:
-            return 0
+            return 0.0
         return 100 * float(amount) / float(self.max_possibilities)
 
     def pre_flop_hand_analyze(self):
@@ -80,9 +80,69 @@ class Possibility(Rankings):
         for rank in opponents_possibilities:
             if rank < main_player_rank:
                 percent_sum += self.calculate_possibility(opponents_possibilities[rank])
+        same_ranking_probability = self.calculate_possibility(opponents_possibilities[main_player_rank])
         print(str(percent_sum) + ' % of opponent player possibilities for hand rankings are better than yours!')
         print('The probability that an opponent has the same hand ranking as you is: '
-              + str(self.calculate_possibility(opponents_possibilities[main_player_rank])) + ' %')
+              + str(same_ranking_probability) + ' %')
+        print(str(100 - (same_ranking_probability + percent_sum)) + ' % chance to win!')
+        if percent_sum == 0 and same_ranking_probability == float(0):
+            print('You are the current BE(A)ST!')
+
+    def get_main_player_hand_ranking_probability(self, count):
+        i = 0
+        # combinations does not symmetric pairs and not same pairs
+        for card_pair in itertools.combinations(self.get_concealed_cards(), count):
+            i += 1
+            if count == 1:
+                self.add_table_open_ghost_cards(card_pair[0])
+            if count == 2:
+                self.add_table_open_ghost_cards(card_pair[0])
+                self.add_table_open_ghost_cards(card_pair[1])
+            typ = self.recognize_hand_ranking()
+            self.recognize_typ(typ)
+            if count == 1:
+                self.remove_open_table_card(card_pair[0])
+            if count == 2:
+                self.remove_open_table_card(card_pair[0])
+                self.remove_open_table_card(card_pair[1])
+
+        self.max_possibilities = i
+
+        print(
+            '--------------------------------------MAIN-PLAYER-CHANCE-TO-GET'
+            '--------------------------------------------')
+        royal_flush_possiblity = self.calculate_possibility(self.royal_flushs)
+        straight_flush_possiblity = self.calculate_possibility(self.straight_flushs)
+        four_of_a_kind_possiblity = self.calculate_possibility(self.four_of_a_kinds)
+        full_house_possbility = self.calculate_possibility(self.full_houses)
+        flush_possibility = self.calculate_possibility(self.flushs)
+        straight_possiblity = self.calculate_possibility(self.straights)
+        three_of_a_kind_possibility = self.calculate_possibility(self.three_of_a_kinds)
+        two_pair_possiblity = self.calculate_possibility(self.two_pairs)
+        one_pair_possibiliy = self.calculate_possibility(self.one_pairs)
+        high_card_possibility = self.calculate_possibility(self.high_cards)
+        if royal_flush_possiblity != float(0):
+            print('royal flush: ' + str(royal_flush_possiblity) + ' %')
+        if straight_flush_possiblity != float(0):
+            print('straight flush: ' + str(straight_flush_possiblity) + ' %')
+        if four_of_a_kind_possiblity != float(0):
+            print('four of a kind: ' + str(four_of_a_kind_possiblity) + ' %')
+        if full_house_possbility != float(0):
+            print('full house: ' + str(full_house_possbility) + ' %')
+        if flush_possibility != float(0):
+            print('flush: ' + str(flush_possibility) + ' %')
+        if straight_possiblity != float(0):
+            print('straight: ' + str(straight_possiblity) + ' %')
+        if three_of_a_kind_possibility != float(0):
+            print('three of a kind: ' + str(three_of_a_kind_possibility) + ' %')
+        if two_pair_possiblity != float(0):
+            print('two pair: ' + str(two_pair_possiblity) + ' %')
+        if one_pair_possibiliy != float(0):
+            print('one pair: ' + str(one_pair_possibiliy) + ' %')
+        if high_card_possibility != float(0):
+            print('high card: ' + str(high_card_possibility) + ' %')
+        print()
+        self.reset_possibilities()
 
     def get_hand_ranking_counts(self):
         i = 0

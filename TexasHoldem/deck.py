@@ -46,6 +46,16 @@ class Deck:
             self.concealed_cards.append(card)
         self.table_open_cards = []
 
+    def remove_open_table_card(self, card):
+        if card in self.table_open_cards:
+            self.concealed_cards.append(card)
+            self.table_open_cards.remove(card)
+
+    def add_table_open_ghost_cards(self, card):
+        if card in self.concealed_cards:
+            self.table_open_cards.append(card)
+            self.concealed_cards.remove(card)
+
     def save_original_main_player_cards(self):
         cards = list(self.get_main_player_cards())
         self.main_player_cards = []

@@ -67,6 +67,13 @@ class Rankings(Deck):
                     straight.clear()
                     straight.append((cards[i][0], cards[i][1]))
                 i += 1
+        if set(['2', '3', '4', '5', 'A']).issubset([i[1] for i in cards]):
+            straight = []
+            for card in cards:
+                if card[1] is ('2' or '3' or '4' or '5' or 'A' or '6' or '7'):
+                    straight.append(card)
+            self.straight = straight
+            return True
         straight_icons = [self.get_card_weight(i) for i in straight]
         if len(set(straight_icons)) >= 5:
             self.straight = straight
@@ -140,6 +147,13 @@ class Rankings(Deck):
                     straight.clear()
                     straight.append((cards[i][0], cards[i][1]))
                 i += 1
+        if set(['2', '3', '4', '5', 'A']).issubset([i[1] for i in cards]):
+            straight = []
+            for card in cards:
+                if card[1] is ('2' or '3' or '4' or '5' or 'A' or '6' or '7'):
+                    straight.append(card)
+            self.straight_flush = straight
+            return True
         straight_icons = [self.get_card_weight(i) for i in straight]
         if len(set(straight_icons)) >= 5:
             self.straight_flush = straight
@@ -149,7 +163,7 @@ class Rankings(Deck):
 
     def get_royal_flush(self):
         self.get_straight_flush()
-        if self.get_straight_flush() and 'A' in [s[1] for s in self.straight_flush]:
+        if self.get_straight_flush() and set(['A', 'K', 'Q', 'J', '10']).issubset([s[1] for s in self.straight_flush]):
             return True
         else:
             return False

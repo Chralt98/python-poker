@@ -21,8 +21,6 @@ class Deck:
         if (suit, icon) in self.concealed_cards:
             self.table_open_cards.append((suit, icon))
             self.concealed_cards.remove((suit, icon))
-        else:
-            print('Card is not in concealed cards. Set card visible...')
 
     def get_main_player_visible_cards(self):
         return self.get_main_player_cards() + self.get_table_open_cards()

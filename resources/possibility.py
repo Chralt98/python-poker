@@ -1,4 +1,4 @@
-from rankings import Rankings
+from resources.rankings import Rankings
 import itertools
 
 

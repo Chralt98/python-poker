@@ -1,4 +1,4 @@
-from deck import Deck
+from resources.deck import Deck
 from collections import Counter
 
 

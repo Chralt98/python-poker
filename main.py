@@ -1,4 +1,4 @@
-from game import Game
+from resources.game import Game
 from tkinter import *
 from collections import namedtuple
 
@@ -70,7 +70,7 @@ class Window(Frame):
         self.quit_button.grid(row=1, column=0)
 
         self.canvas = Canvas(bg='grey', height=(4 * 76.75), width=(13 * 49.231))
-        self.picture = PhotoImage(file='TexasHoldem/card_deck.png')
+        self.picture = PhotoImage(file='resources/card_deck.png')
         img_rects = []
         for y in range(4):
             for x in range(13):

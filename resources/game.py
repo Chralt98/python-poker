@@ -1,4 +1,4 @@
-from possibility import Possibility
+from resources.possibility import Possibility
 
 
 class Game(Possibility):

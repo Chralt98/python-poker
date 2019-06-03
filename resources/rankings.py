@@ -70,7 +70,11 @@ class Rankings(Deck):
         if set(['2', '3', '4', '5', 'A']).issubset([i[1] for i in cards]):
             straight = []
             for card in cards:
-                if card[1] is ('2' or '3' or '4' or '5' or 'A' or '6' or '7'):
+                if card[1] is ('2' or '3' or '4' or '5' or 'A'):
+                    straight.append(card)
+                elif card[1] is '6':
+                    straight.append(card)
+                elif card[1] is '7' and ('6' in [i[1] for i in cards]):
                     straight.append(card)
             self.straight = straight
             return True
@@ -150,7 +154,11 @@ class Rankings(Deck):
         if set(['2', '3', '4', '5', 'A']).issubset([i[1] for i in cards]):
             straight = []
             for card in cards:
-                if card[1] is ('2' or '3' or '4' or '5' or 'A' or '6' or '7'):
+                if card[1] is ('2' or '3' or '4' or '5' or 'A'):
+                    straight.append(card)
+                elif card[1] is '6':
+                    straight.append(card)
+                elif card[1] is '7' and ('6' in [i[1] for i in cards]):
                     straight.append(card)
             self.straight_flush = straight
             return True
